@@ -20,8 +20,19 @@ import MyComponent from 'react-drizzle'
 class Example extends Component {
   render() {
     return (
+      <h1>
+        <Drizzle type="text" group="my-group-namespace">
+            Text you<br></br> want to<br></br>Animate
+        </Drizzle>
+      </h1>
+
       <Drizzle type="fade-up" group="my-group-namespace">
-        content
+          {/* it will wait to load image before revealing the group */}
+          <img
+            width="130"
+            height="auto"
+            src="https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&   auto=format&fit=crop&w=500&q=100"
+          ></img>
       </Drizzle>
     )
   }
