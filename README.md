@@ -18,9 +18,11 @@ import React, { Component } from 'react'
 import MyComponent from 'react-drizzle'
 
 class Example extends Component {
-  render () {
+  render() {
     return (
-      <MyComponent />
+      <Drizzle type="fade-up" group="my-group-namespace">
+        content
+      </Drizzle>
     )
   }
 }
@@ -28,4 +30,4 @@ class Example extends Component {
 
 ## License
 
-MIT © [jasonfarrell](https://github.com/jasonfarrell)
+MIT © [UseAllFive](https://github.com/UseAllFive)
