@@ -30,7 +30,12 @@ export class TextAppear extends Component {
     if (this.props.showing && !this.state.hasShown) {
       const originalContent = this.groupRef.current.innerHTML
       this.animationStage.current.innerHTML = originalContent
-      const el = this.animationStage.current
+      const el = this.animationStage.current.firstElementChild
+      const childNodeCount = this.groupRef.current.childElementCount
+      if (childNodeCount !== 1) {
+        console.log(`Drizzle Warning: type="text" must only contain one child node. Contains: ${childNodeCount}:`)
+        console.log(this.groupRef.current.innerHTML)
+      }
       wrapLines(el)
       const lines = el.querySelectorAll('.ani-line')
       const complete = (i) => {
@@ -84,7 +89,6 @@ function wrapLines($container) {
   // console.log($container.innerHTML)
 
   var text = $container.textContent
-  console.log(text)
 
   // split the text into words
   var words = text.split(' ')

@@ -29,20 +29,12 @@ export default class App extends Component {
               ></img>
             </p>
           </Drizzle>
-          <h1>
-            <Drizzle type="text" group="test">
-              Text you<br></br> want to<br></br>Animate<br></br>
+          <Drizzle type="text" group="test">
+            <h3>
+              Text you<br></br> want to animate<br></br> and want to test<br></br> and want to<br></br>Animate<br></br>
               {this.state.test}
-            </Drizzle>
-          </h1>
-        </section>
-        <section style={{ height: '1000px' }}>
-          <Drizzle type="fade-up" group="test"></Drizzle>
-          <h1>
-            <Drizzle type="text" group="test">
-              Text you<br></br> want to<br></br>Animate
-            </Drizzle>
-          </h1>
+            </h3>
+          </Drizzle>
         </section>
       </div>
     )
