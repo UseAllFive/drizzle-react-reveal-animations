@@ -63,7 +63,7 @@ export class TextAppear extends Component {
           {
             y: 0,
             opacity: 1,
-            delay: this.context.delay + index * this.context.textLineStaggerTime,
+            delay: this.context.delay + index * this.context.textLineStaggerSpeed,
             onComplete: complete,
             onCompleteParams: [index],
             ease: this.context.ease,

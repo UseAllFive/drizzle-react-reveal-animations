@@ -10,7 +10,7 @@ export default class App extends Component {
   }
   componentDidMount() {
     setTimeout(() => {
-      this.setState({ test: 'Updates to content' })
+      this.setState({ test: 'Updates with content' })
     }, 2500)
   }
   render() {
@@ -18,16 +18,12 @@ export default class App extends Component {
       <div>
         {this.state.test}
         <section style={{ height: '1000px' }}>
-          <DrizzleSettings speed={4}>
+          <DrizzleSettings ease={'elastic.out(1, 0.3)'} speed={2}>
             <Drizzle type="text" group="my-group-namespace">
               <h1>
-                Text you<br></br> want to<br></br>Animate
+                Text you<br></br> want to<br></br>Animate<br></br>
+                {this.state.test}
               </h1>
-            </Drizzle>
-            <Drizzle type="text" group="my-group-namespace">
-              <h2>
-                Text you<br></br> want to<br></br>Animate
-              </h2>
             </Drizzle>
 
             <Drizzle type="fade-up" group="my-group-namespace">
@@ -35,7 +31,15 @@ export default class App extends Component {
               <img
                 width="130"
                 height="auto"
-                src="https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&   auto=format&fit=crop&w=500&q=100"
+                src="https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=100"
+              ></img>
+            </Drizzle>
+
+            <Drizzle type="fade-down" group="second-group">
+              <img
+                width="130"
+                height="auto"
+                src="https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=100"
               ></img>
             </Drizzle>
           </DrizzleSettings>

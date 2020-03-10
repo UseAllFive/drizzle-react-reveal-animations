@@ -21,5 +21,5 @@ DrizzleSettings.propTypes = {
   ease: PropTypes.string,
   staggerSpeed: PropTypes.number,
   waitForChildImages: PropTypes.bool,
-  textLineStaggerTime: PropTypes.number,
+  textLineStaggerSpeed: PropTypes.number,
 }
