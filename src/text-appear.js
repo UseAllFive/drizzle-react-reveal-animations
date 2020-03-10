@@ -2,6 +2,7 @@ import { Box } from 'rebass'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState, useRef, Component } from 'react'
 import { TweenMax } from 'gsap'
+import { DrizzleContext } from './drizzle-context'
 
 export class TextAppear extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ export class TextAppear extends Component {
       return
     }
     if (this.props.showing && !this.state.hasShown) {
+      this.setState({ showing: true })
       const originalContent = this.groupRef.current.innerHTML
       this.animationStage.current.innerHTML = originalContent
       const el = this.animationStage.current.firstElementChild
@@ -61,6 +63,7 @@ export class TextAppear extends Component {
             // clearProps: 'all',
             onComplete: complete,
             onCompleteParams: [index],
+            ease: this.context.ease,
           }
         )
       })
@@ -83,6 +86,8 @@ export class TextAppear extends Component {
 TextAppear.propTypes = {
   showing: PropTypes.bool,
 }
+
+TextAppear.contextType = DrizzleContext
 
 function wrapLines($container) {
   // get the text from the conatiner

@@ -32,6 +32,7 @@ class AniController {
     child.done = groupSettings.done
     child.callback = callback
     child.imagesLoaded = groupSettings.imagesLoaded
+    child.context = groupSettings.context
 
     // Don't carry on until all images are loaded
     if (group.imagesToLoadCount !== group.imagesLoadedCount) {
@@ -84,7 +85,7 @@ class AniController {
         // The child is ready to be displayed, hit the callback!
         child.callback()
         delete group.queue[child.key]
-      }, childOrder * 100)
+      }, childOrder * (child.context.staggerSpeed * 1000))
     } else {
       clearTimeout(group.timeout)
     }

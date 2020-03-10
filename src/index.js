@@ -2,9 +2,11 @@ import { Box } from 'rebass'
 import PropTypes from 'prop-types'
 import { aniController } from './ani-controller'
 import { TextAppear } from './text-appear'
-import React, { Component } from 'react'
+import React, { Component, useContext } from 'react'
+import { DrizzleContext } from './drizzle-context'
+import { DrizzleSettings } from './drizzle-settings'
 
-export class Drizzle extends Component {
+export default class Drizzle extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -18,7 +20,7 @@ export class Drizzle extends Component {
 
   componentDidMount() {
     // if we're rendering this component server-side, show it
-    if (this.isServerSide) {
+    if (this.isServerSide && !this.showing) {
       this.setState({ showing: true })
       return
     }
@@ -26,12 +28,13 @@ export class Drizzle extends Component {
     // We want to pause the reveal of the entire group
     // while we wait for the images to load
     const images = ('img', this.groupRef.current.querySelectorAll('img'))
-    if (images) {
+    if (images && this.context.waitForChildImages) {
       images.forEach((img) => {
         aniController.addImagesToLoad(this.props.group, img.getAttribute('src'))
       })
+    } else {
+      console.log('skipping images')
     }
-
     this.observer = new window.IntersectionObserver(
       ([entry]) => {
         this.setState({ onScreen: entry.isIntersecting })
@@ -69,6 +72,7 @@ export class Drizzle extends Component {
         order: this.props.order,
         childId: this.state.childId,
         done: this.state.showing,
+        context: this.context,
       },
       () => {
         this.setState({ showing: true })
@@ -80,7 +84,7 @@ export class Drizzle extends Component {
   render() {
     return (
       <span ref={this.groupRef}>
-        <AniType type={this.props.type} showing={this.state.showing}>
+        <AniType speed={this.context.speed} type={this.props.type} showing={this.state.showing}>
           {this.state.counter}
           {this.props.children}
         </AniType>
@@ -89,34 +93,44 @@ export class Drizzle extends Component {
   }
 }
 
+Drizzle.contextType = DrizzleContext
+
 export function AniType(props) {
   let el = <div>{props.children}</div>
   switch (props.type) {
     case 'fade':
-      el = <Fade showing={props.showing}>{props.children}</Fade>
+      el = (
+        <Fade speed={props.speed} showing={props.showing}>
+          {props.children}
+        </Fade>
+      )
       break
     case 'fade-down':
       el = (
-        <Fade direction="down" showing={props.showing}>
+        <Fade speed={props.speed} direction="down" showing={props.showing}>
           {props.children}
         </Fade>
       )
       break
     case 'fade-up':
       el = (
-        <Fade direction="up" showing={props.showing}>
+        <Fade speed={props.speed} direction="up" showing={props.showing}>
           {props.children}
         </Fade>
       )
       break
     case 'text':
-      el = <TextAppear showing={props.showing}>{props.children}</TextAppear>
+      el = (
+        <TextAppear speed={props.speed} showing={props.showing}>
+          {props.children}
+        </TextAppear>
+      )
       break
   }
   return el
 }
 
-export function Fade(props) {
+export const Fade = (props) => {
   let movement = 'translate(0, 0)'
   if (props.direction === 'up') {
     movement = 'translate(0, 25px)'
@@ -134,7 +148,7 @@ export function Fade(props) {
         opacity: props.showing ? 1 : 0,
         display: 'block',
         transform: props.showing ? 'translate(0, 0)' : movement,
-        transition: `all 0.6s ease-out ${delay}s`,
+        transition: `all ${props.speed}s ease-out ${delay}s`,
       }}
     >
       {props.children}
@@ -153,3 +167,5 @@ Drizzle.propTypes = {
   type: PropTypes.string,
   onAppear: PropTypes.func,
 }
+
+export { DrizzleContext, DrizzleSettings }

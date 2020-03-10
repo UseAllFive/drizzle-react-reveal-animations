@@ -15,25 +15,36 @@ npm install --save react-drizzle
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'react-drizzle'
+import Drizzle, { DrizzleContext } from 'react-drizzle'
 
 class Example extends Component {
   render() {
     return (
-      <h1>
-        <Drizzle type="text" group="my-group-namespace">
+      <DrizzleSettings speed={2}>
+        <h1>
+          <Drizzle type="text" group="my-group-namespace">
             Text you<br></br> want to<br></br>Animate
-        </Drizzle>
-      </h1>
+          </Drizzle>
+        </h1>
 
-      <Drizzle type="fade-up" group="my-group-namespace">
+        <Drizzle type="fade-up" group="my-group-namespace">
           {/* it will wait to load image before revealing the group */}
           <img
             width="130"
             height="auto"
             src="https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&   auto=format&fit=crop&w=500&q=100"
           ></img>
-      </Drizzle>
+        </Drizzle>
+
+        {/* Update context settings for child Drizzle components */}
+        <DrizzleContext.Provider value={{ waitForChildImages: false }}>
+          <img
+            width="130"
+            height="auto"
+            src="https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&   auto=format&fit=crop&w=500&q=100"
+          ></img>
+        </DrizzleContext.Provider>
+      </DrizzleSettings>
     )
   }
 }
