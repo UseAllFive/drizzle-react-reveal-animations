@@ -21,11 +21,11 @@ class Example extends Component {
   render() {
     return (
       <DrizzleSettings speed={2}>
-        <h1>
-          <Drizzle type="text" group="my-group-namespace">
+        <Drizzle type="text" group="my-group-namespace">
+          <h1>
             Text you<br></br> want to<br></br>Animate
-          </Drizzle>
-        </h1>
+          </h1>
+        </Drizzle>
 
         <Drizzle type="fade-up" group="my-group-namespace">
           {/* it will wait to load image before revealing the group */}

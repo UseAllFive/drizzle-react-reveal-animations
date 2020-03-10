@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Drizzle } from 'react-drizzle'
+import Drizzle, { DrizzleSettings } from 'react-drizzle'
 
 export default class App extends Component {
   constructor() {
@@ -18,23 +18,27 @@ export default class App extends Component {
       <div>
         {this.state.test}
         <section style={{ height: '1000px' }}>
-          <Drizzle type="fade-up" group="test">
-            <p>
-              {this.state.test}
+          <DrizzleSettings speed={4}>
+            <Drizzle type="text" group="my-group-namespace">
+              <h1>
+                Text you<br></br> want to<br></br>Animate
+              </h1>
+            </Drizzle>
+            <Drizzle type="text" group="my-group-namespace">
+              <h2>
+                Text you<br></br> want to<br></br>Animate
+              </h2>
+            </Drizzle>
+
+            <Drizzle type="fade-up" group="my-group-namespace">
               {/* it will wait to load image before revealing the group */}
               <img
                 width="130"
                 height="auto"
-                src="https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=100"
+                src="https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&   auto=format&fit=crop&w=500&q=100"
               ></img>
-            </p>
-          </Drizzle>
-          <Drizzle type="text" group="test">
-            <h3>
-              Text you<br></br> want to animate<br></br> and want to test<br></br> and want to<br></br>Animate<br></br>
-              {this.state.test}
-            </h3>
-          </Drizzle>
+            </Drizzle>
+          </DrizzleSettings>
         </section>
       </div>
     )

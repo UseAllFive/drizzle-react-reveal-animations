@@ -84,7 +84,12 @@ export default class Drizzle extends Component {
   render() {
     return (
       <span ref={this.groupRef}>
-        <AniType speed={this.context.speed} type={this.props.type} showing={this.state.showing}>
+        <AniType
+          speed={this.context.speed}
+          delay={this.context.delay}
+          type={this.props.type}
+          showing={this.state.showing}
+        >
           {this.state.counter}
           {this.props.children}
         </AniType>
@@ -100,21 +105,21 @@ export function AniType(props) {
   switch (props.type) {
     case 'fade':
       el = (
-        <Fade speed={props.speed} showing={props.showing}>
+        <Fade speed={props.speed} delay={props.delay} showing={props.showing}>
           {props.children}
         </Fade>
       )
       break
     case 'fade-down':
       el = (
-        <Fade speed={props.speed} direction="down" showing={props.showing}>
+        <Fade speed={props.speed} delay={props.delay} direction="down" showing={props.showing}>
           {props.children}
         </Fade>
       )
       break
     case 'fade-up':
       el = (
-        <Fade speed={props.speed} direction="up" showing={props.showing}>
+        <Fade speed={props.speed} delay={props.delay} direction="up" showing={props.showing}>
           {props.children}
         </Fade>
       )

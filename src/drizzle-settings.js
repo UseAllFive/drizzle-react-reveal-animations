@@ -7,7 +7,8 @@ export const DrizzleSettings = (props) => {
     ...drizzleSettingsDefault,
     ...props,
   }
-  // dont want to pass children here
+
+  // dont want to pass children as a value
   if (settings.children) {
     delete settings.children
   }
@@ -20,4 +21,5 @@ DrizzleSettings.propTypes = {
   ease: PropTypes.string,
   staggerSpeed: PropTypes.number,
   waitForChildImages: PropTypes.bool,
+  textLineStaggerTime: PropTypes.number,
 }

@@ -42,6 +42,8 @@ export class TextAppear extends Component {
       }
       wrapLines(el)
       const lines = el.querySelectorAll('.ani-line')
+      const speed = this.context.speed / lines.length + 1
+
       const complete = (i) => {
         if (i === lines.length - 1) {
           el.innerHTML = originalContent
@@ -51,19 +53,21 @@ export class TextAppear extends Component {
       }
 
       lines.forEach((item, index) => {
-        item.style.display = 'inline-block'
+        const $group = item.querySelector('.ani-line-group')
+        item.style.display = 'flex'
+        $group.style.display = 'inline-block'
         TweenMax.fromTo(
-          item,
-          1,
+          $group,
+          speed,
           { y: 30, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            delay: 0.1 * index,
-            // clearProps: 'all',
+            delay: this.context.delay + index * this.context.textLineStaggerTime,
             onComplete: complete,
             onCompleteParams: [index],
             ease: this.context.ease,
+            clearProps: 'all',
           }
         )
       })

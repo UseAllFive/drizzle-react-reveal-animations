@@ -5,6 +5,8 @@ export const drizzleSettingsDefault = {
   speed: 1,
   ease: 'Power2.easeOut',
   staggerSpeed: 0.1,
+  textLineStaggerTime: 0.1,
+  delay: 0,
 }
 
 // Make sure the shape of the default value passed to
