@@ -24,7 +24,9 @@ export class TextAppear extends Component {
   check() {
     // if we're rendering this component server-side, show it
     if (typeof document === 'undefined' || typeof window === 'undefined') {
-      this.setState({ hasShown: true })
+      if (!this.state.hasShown) {
+        this.setState({ hasShown: true })
+      }
       return
     }
     if (this.props.showing && !this.state.hasShown) {
@@ -47,7 +49,7 @@ export class TextAppear extends Component {
       }
 
       lines.forEach((item, index) => {
-        item.style.display = 'block'
+        item.style.display = 'inline-block'
         TweenMax.fromTo(
           item,
           1,
