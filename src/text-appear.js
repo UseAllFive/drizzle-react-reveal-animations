@@ -59,7 +59,7 @@ export class TextAppear extends Component {
         TweenMax.fromTo(
           $group,
           speed,
-          { y: 30, opacity: 0 },
+          { y: this.context.movement, opacity: 0 },
           {
             y: 0,
             opacity: 1,

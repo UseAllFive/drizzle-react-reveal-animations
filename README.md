@@ -61,13 +61,15 @@ class Example extends Component {
 
 - `type`: `fade` or `text`. Can take a direction:
   - `fade-up`, `fade-down`, ex: `type="fade-down"`
-- `order`: Number - if this isn't set, it picks the order based off creation order. Elements with an order set always rank higher than elements without an order.
+- `order`: Number - if this isn't set, it picks the order based off creation order. Elements with an order set always rank higher than elements without an order. The plugin sets a calculated order — for example, if two elements have the order 1, 5, 7, the calculated orders get set to 0, 1, 2.
+- `speed`: Number in seconds (default: 1) - the time it takes for a single Drizzle element to appear. This is multiplied by its calculated order.
+- `delay`: Number in seconds (default: 0) - the amount of time to wait to reveal the item, after it is ready to reveal.
+- `distance`: Number - pixel distance (default: 25). Used for movement, such as a `fade-up`
 
-#### `<DrizzleSettings>`
+#### `<DrizzleSettings>` - global settings applied to all child `<Drizzle>` elements
 
-- `speed`: Number in seconds (default: 1) - the time it takes for a single Drizzle element to appear
+- Can set defaults for `speed`, `delay`, `distance`.
 - `staggerSpeed`: Number in seconds (default: 0.1) - the time to wait between revealing Drizzle items within the group.
-- `delay`: Number in seconds (default: 1) - the amount of time to wait to reveal the item, after it is ready to reveal.
 - `ease`: String (default: 'Power2.easeOut') - a GSAP tween. ex: `ease={'elastic.out(1, 0.3)'}`
   - [GSAP Ease Visualizer](https://greensock.com/ease-visualizer/)
 - `waitForChildImages`: Boolean (default: true) - doesn't reveal group until images in the group are loaded.

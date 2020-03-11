@@ -83,17 +83,17 @@ export default class Drizzle extends Component {
 
   render() {
     return (
-      <span ref={this.groupRef}>
+      <Box sx={{ display: 'block', height: '100%', width: '100%', position: 'relative' }} ref={this.groupRef}>
         <AniType
-          speed={this.context.speed}
-          delay={this.context.delay}
+          speed={this.props.speed || this.context.speed}
+          delay={this.props.delay || this.context.delay}
           type={this.props.type}
+          distance={this.props.distance || this.context.distance}
           showing={this.state.showing}
         >
-          {this.state.counter}
           {this.props.children}
         </AniType>
-      </span>
+      </Box>
     )
   }
 }
@@ -102,24 +102,26 @@ Drizzle.contextType = DrizzleContext
 
 export function AniType(props) {
   let el = <div>{props.children}</div>
-  switch (props.type) {
+
+  let fullTypeName = props.type
+  let direction = null
+  let type
+  if (fullTypeName.indexOf('-') > -1) {
+    ;[type, direction] = fullTypeName.split('-')
+  } else {
+    type = fullTypeName
+  }
+
+  switch (type) {
     case 'fade':
       el = (
-        <Fade speed={props.speed} delay={props.delay} showing={props.showing}>
-          {props.children}
-        </Fade>
-      )
-      break
-    case 'fade-down':
-      el = (
-        <Fade speed={props.speed} delay={props.delay} direction="down" showing={props.showing}>
-          {props.children}
-        </Fade>
-      )
-      break
-    case 'fade-up':
-      el = (
-        <Fade speed={props.speed} delay={props.delay} direction="up" showing={props.showing}>
+        <Fade
+          speed={props.speed}
+          distance={props.distance}
+          delay={props.delay}
+          direction={direction}
+          showing={props.showing}
+        >
           {props.children}
         </Fade>
       )
@@ -138,26 +140,29 @@ export function AniType(props) {
 export const Fade = (props) => {
   let movement = 'translate(0, 0)'
   if (props.direction === 'up') {
-    movement = 'translate(0, 25px)'
+    movement = `translate(0, ${props.distance}px)`
   } else if (props.direction === 'down') {
-    movement = 'translate(0, -25px)'
+    movement = `translate(0, -${props.distance}px)`
   } else if (props.direction === 'left') {
-    movement = 'translate(-25px, 0)'
+    movement = `translate(-${props.distance}px, 0)`
   } else if (props.direction === 'right') {
-    movement = 'translate(25px, 0)'
+    movement = `translate(${props.distance}px, 0)`
   }
   const delay = props.delay ? props.delay : 0
   return (
-    <span
-      style={{
+    <Box
+      sx={{
         opacity: props.showing ? 1 : 0,
         display: 'block',
+        height: '100%',
+        width: '100%',
+        position: 'relative',
         transform: props.showing ? 'translate(0, 0)' : movement,
         transition: `all ${props.speed}s ease-out ${delay}s`,
       }}
     >
       {props.children}
-    </span>
+    </Box>
   )
 }
 
@@ -169,6 +174,9 @@ Drizzle.defaultProps = {
 Drizzle.propTypes = {
   order: PropTypes.number,
   group: PropTypes.string,
+  speed: PropTypes.number,
+  delay: PropTypes.number,
+  distance: PropTypes.distance,
   type: PropTypes.string,
   onAppear: PropTypes.func,
 }
