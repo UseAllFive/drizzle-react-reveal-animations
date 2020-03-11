@@ -27,6 +27,7 @@ export class TextAppear extends Component {
     if (typeof document === 'undefined' || typeof window === 'undefined') {
       if (!this.state.hasShown) {
         this.setState({ hasShown: true })
+        this.setState({ complete: true })
       }
       return
     }
@@ -86,9 +87,15 @@ export class TextAppear extends Component {
     )
   }
 }
+// Specifies the default values for props:
+TextAppear.defaultProps = {
+  distance: NaN,
+}
 
 TextAppear.propTypes = {
   showing: PropTypes.bool,
+  distance: PropTypes.number,
+  children: PropTypes.object,
 }
 
 TextAppear.contextType = DrizzleContext
@@ -140,10 +147,10 @@ function wrapLines($container) {
   $container.innerHTML = tmp
 
   // prepare the offset variable and tmp
-  var tmp = ''
   var top = null
   var wordSpans = $container.querySelectorAll('span')
-  $container.querySelectorAll('span').forEach((word, index) => {
+  var len = wordSpans.length
+  wordSpans.forEach((word, index) => {
     // if this is the first iteration
     if (top === null) {
       // set the top
@@ -161,11 +168,18 @@ function wrapLines($container) {
     }
     let spacing = word.innerText.indexOf('-') !== -1 ? '' : ' '
     // add the content of the word node + a space
-    tmp += word.innerText + spacing
+    tmp += word.innerText
+    if (len - 1 > index) {
+      tmp += spacing
+    }
   })
   // close the last line
-  tmp += '</span>'
-
+  tmp += '</span></span>'
   // remove the content of the conatiner, and replace it with the wrapped lines
   $container.innerHTML = tmp
+  $container.querySelectorAll('.ani-line').forEach((item) => {
+    if (item.innerText === '' || item.innerText === ' ') {
+      $container.removeChild(item)
+    }
+  })
 }

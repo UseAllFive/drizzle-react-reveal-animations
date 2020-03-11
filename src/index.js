@@ -41,8 +41,8 @@ export default class Drizzle extends Component {
         this.setState({ onScreen: entry.isIntersecting })
       },
       {
-        rootMargin: '0px',
-        threshold: [0, 1],
+        rootMargin: `${this.props.visibilityRootMargin || this.context.visibilityRootMargin}px`,
+        threshold: this.props.visibilityThreshold || this.context.visibilityThreshold,
       }
     )
     this.observer.observe(this.groupRef.current)
@@ -156,10 +156,13 @@ Drizzle.propTypes = {
   group: PropTypes.string,
   speed: PropTypes.number,
   delay: PropTypes.number,
-  distance: PropTypes.distance,
+  distance: PropTypes.number,
   type: PropTypes.string,
   ease: PropTypes.string,
   onAppear: PropTypes.func,
+  visibilityRootMargin: PropTypes.any,
+  visibilityThreshold: PropTypes.any,
+  children: PropTypes.object,
 }
 
 export { DrizzleContext, DrizzleSettings }

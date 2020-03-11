@@ -8,6 +8,8 @@ export const drizzleSettingsDefault = {
   textLineStaggerSpeed: 0.1,
   delay: 0,
   distance: 25,
+  visibilityRootMargin: 0,
+  visibilityThreshold: 0.3,
 }
 
 // Make sure the shape of the default value passed to
