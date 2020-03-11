@@ -42,7 +42,7 @@ export class TextAppear extends Component {
       }
       wrapLines(el)
       const lines = el.querySelectorAll('.ani-line')
-      const speed = this.context.speed / lines.length + 1
+      const speed = this.props.speed / lines.length + 1
 
       const complete = (i) => {
         if (i === lines.length - 1) {
@@ -54,19 +54,19 @@ export class TextAppear extends Component {
 
       lines.forEach((item, index) => {
         const $group = item.querySelector('.ani-line-group')
-        item.style.display = 'flex'
+        item.style.display = 'block'
         $group.style.display = 'inline-block'
         TweenMax.fromTo(
           $group,
           speed,
-          { y: this.context.movement, opacity: 0 },
+          { y: this.props.distance, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            delay: this.context.delay + index * this.context.textLineStaggerSpeed,
+            delay: this.props.delay + index * this.context.textLineStaggerSpeed,
             onComplete: complete,
             onCompleteParams: [index],
-            ease: this.context.ease,
+            ease: this.props.ease,
             clearProps: 'all',
           }
         )

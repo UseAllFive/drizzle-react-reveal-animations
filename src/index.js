@@ -5,6 +5,7 @@ import { TextAppear } from './text-appear'
 import React, { Component, useContext } from 'react'
 import { DrizzleContext } from './drizzle-context'
 import { DrizzleSettings } from './drizzle-settings'
+import { FadeAppear } from './fade-appear'
 
 export default class Drizzle extends Component {
   constructor(props) {
@@ -87,6 +88,7 @@ export default class Drizzle extends Component {
         <AniType
           speed={this.props.speed || this.context.speed}
           delay={this.props.delay || this.context.delay}
+          ease={this.props.ease || this.context.ease}
           type={this.props.type}
           distance={this.props.distance || this.context.distance}
           showing={this.state.showing}
@@ -115,55 +117,33 @@ export function AniType(props) {
   switch (type) {
     case 'fade':
       el = (
-        <Fade
+        <FadeAppear
           speed={props.speed}
           distance={props.distance}
           delay={props.delay}
           direction={direction}
+          ease={props.ease}
           showing={props.showing}
         >
           {props.children}
-        </Fade>
+        </FadeAppear>
       )
       break
     case 'text':
       el = (
-        <TextAppear speed={props.speed} showing={props.showing}>
+        <TextAppear
+          ease={props.ease}
+          distance={props.distance}
+          delay={props.delay}
+          speed={props.speed}
+          showing={props.showing}
+        >
           {props.children}
         </TextAppear>
       )
       break
   }
   return el
-}
-
-export const Fade = (props) => {
-  let movement = 'translate(0, 0)'
-  if (props.direction === 'up') {
-    movement = `translate(0, ${props.distance}px)`
-  } else if (props.direction === 'down') {
-    movement = `translate(0, -${props.distance}px)`
-  } else if (props.direction === 'left') {
-    movement = `translate(-${props.distance}px, 0)`
-  } else if (props.direction === 'right') {
-    movement = `translate(${props.distance}px, 0)`
-  }
-  const delay = props.delay ? props.delay : 0
-  return (
-    <Box
-      sx={{
-        opacity: props.showing ? 1 : 0,
-        display: 'block',
-        height: '100%',
-        width: '100%',
-        position: 'relative',
-        transform: props.showing ? 'translate(0, 0)' : movement,
-        transition: `all ${props.speed}s ease-out ${delay}s`,
-      }}
-    >
-      {props.children}
-    </Box>
-  )
 }
 
 Drizzle.defaultProps = {
@@ -178,6 +158,7 @@ Drizzle.propTypes = {
   delay: PropTypes.number,
   distance: PropTypes.distance,
   type: PropTypes.string,
+  ease: PropTypes.string,
   onAppear: PropTypes.func,
 }
 
