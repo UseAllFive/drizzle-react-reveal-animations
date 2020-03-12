@@ -67,6 +67,7 @@ class Example extends Component {
 - `speed`: Number in seconds (default: 1) - the time it takes for a single Drizzle element to appear. This is multiplied by its calculated order.
 - `delay`: Number in seconds (default: 0) - the amount of time to wait to reveal the item, after it is ready to reveal.
 - `distance`: Number - pixel distance (default: 25). Used for movement, such as a `fade-up`
+- `onAppear`: Function - callback that triggers when the item is ready to reveal, e.g. when the item moves into view.
 - `visibilityRootMargin` String or Number - (default: 0) Margin around the root. See [Intersection Observer API
   ](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_concepts_and_usage)
 - `visibilityThreshold` Array or Number - (default: 0.3) Indicates at what percentage of the target's visibility the observer's callback should be executed [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_concepts_and_usage)

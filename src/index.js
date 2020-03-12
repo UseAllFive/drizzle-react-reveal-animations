@@ -78,6 +78,7 @@ export default class Drizzle extends Component {
       () => {
         this.setState({ showing: true })
         this.cleanup()
+        this.props.onAppear()
       }
     )
   }
@@ -148,7 +149,8 @@ export function AniType(props) {
 
 Drizzle.defaultProps = {
   order: NaN,
-  type: 'fade-up',
+  type: '',
+  onAppear: () => {},
 }
 
 Drizzle.propTypes = {

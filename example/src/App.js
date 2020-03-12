@@ -6,6 +6,7 @@ export default class App extends Component {
     super()
     this.state = {
       test: 'Some basic content.',
+      showManualItem: false,
     }
   }
   componentDidMount() {
@@ -17,7 +18,6 @@ export default class App extends Component {
     return (
       <div>
         {this.state.test}
-
         <Drizzle speed={1} type="text" group="my-group-namespace">
           <h1>
             Text you<br></br> want to<br></br>Animate<br></br>
@@ -40,6 +40,23 @@ export default class App extends Component {
             height="auto"
             src="https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=100"
           ></img>
+        </Drizzle>
+
+        {/* Example of a custom animation */}
+        <Drizzle
+          onAppear={() => {
+            this.setState({ showManualItem: true })
+          }}
+          group="fade-down"
+        >
+          <h1
+            style={{
+              transition: 'all 1s ease-in',
+              transform: this.state.showManualItem ? 'translateY(0px)' : 'translateY(-10px)',
+            }}
+          >
+            Custom Animation
+          </h1>
         </Drizzle>
       </div>
     )
