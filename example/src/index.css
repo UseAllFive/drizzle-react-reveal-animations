@@ -3,6 +3,12 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+h1 {
+  font-weight: normal;
+}
+h1 strong {
+  font-weight: bold;
+}
 
 .container {
   display: grid;

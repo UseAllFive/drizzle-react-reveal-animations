@@ -7,7 +7,7 @@ export default class Grid extends Component {
   constructor() {
     super()
     this.state = {
-      count: 4,
+      count: 12,
     }
   }
   addCell() {

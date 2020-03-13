@@ -8,11 +8,13 @@ export default class Grid extends Component {
   }
   render() {
     return (
-      <div className="block">
-        <Drizzle group={this.state.groupName} type="fade-down" distance={0} delay={0.4} order={1} speed={1}>
-          <DrizzleSettings delay={1} staggerSpeed={0.3}>
+      <Drizzle group={this.state.groupName} type="fade-down" distance={100} delay={0} order={1} speed={1}>
+        <div className="block">
+          <DrizzleSettings delay={0.5} staggerSpeed={0.3}>
             <Drizzle group={this.state.groupName} order={2} type="text">
-              <h1>My title Next Line goes here</h1>
+              <h1>
+                My title<br></br>Next <strong>Line</strong> goes here
+              </h1>
             </Drizzle>
 
             <Drizzle group={this.state.groupName} order={3} type="text">
@@ -29,8 +31,8 @@ export default class Grid extends Component {
               ></img>
             </Drizzle>
           </DrizzleSettings>
-        </Drizzle>
-      </div>
+        </div>
+      </Drizzle>
     )
   }
 }
