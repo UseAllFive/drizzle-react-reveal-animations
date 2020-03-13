@@ -40,6 +40,20 @@ class AniController {
       return
     }
 
+    let groupDelayIndex = 0
+    // Determine if there are more visible groups
+    // and then where this one lies — for staggering between groups
+    for (const [key, value] of Object.entries(this.groups)) {
+      if (key !== groupSettings.name) {
+        const childrenLen = Object.keys(value.children).length
+        if (childrenLen > 0) {
+          groupDelayIndex++
+        }
+      } else {
+        break
+      }
+    }
+
     // If the item is on the board
     if (groupSettings.visible && !child.done) {
       const arr = []
@@ -80,12 +94,13 @@ class AniController {
         }
         count++
       })
+      const delaySeconds = groupDelayIndex * (1000 * child.context.groupStaggerSpeed)
       // Delay the callback based on the order
       child.timeout = setTimeout(() => {
         // The child is ready to be displayed, hit the callback!
         child.callback()
         delete group.queue[child.key]
-      }, childOrder * (child.context.staggerSpeed * 1000))
+      }, childOrder * (child.context.staggerSpeed * 1000) + delaySeconds)
     } else {
       clearTimeout(group.timeout)
     }

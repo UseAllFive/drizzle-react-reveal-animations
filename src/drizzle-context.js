@@ -5,6 +5,7 @@ export const drizzleSettingsDefault = {
   speed: 1,
   ease: 'Power2.easeOut',
   staggerSpeed: 0.1,
+  groupStaggerSpeed: 1,
   textLineStaggerSpeed: 0.1,
   delay: 0,
   distance: 25,

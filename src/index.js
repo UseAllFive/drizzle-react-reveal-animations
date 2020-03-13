@@ -164,7 +164,7 @@ Drizzle.propTypes = {
   onAppear: PropTypes.func,
   visibilityRootMargin: PropTypes.any,
   visibilityThreshold: PropTypes.any,
-  children: PropTypes.object,
+  children: PropTypes.any,
 }
 
 export { DrizzleContext, DrizzleSettings }

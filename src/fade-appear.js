@@ -48,6 +48,7 @@ export class FadeAppear extends Component {
         x: 0,
         y: 0,
         ease: this.props.ease,
+        delay: this.props.delay,
       })
       this.setState({ hasShown: true })
     }
@@ -81,5 +82,5 @@ FadeAppear.propTypes = {
   showing: PropTypes.bool,
   ease: PropTypes.string,
   direction: PropTypes.string,
-  children: PropTypes.object,
+  children: PropTypes.any,
 }
