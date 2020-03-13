@@ -11,6 +11,7 @@ export class TextAppear extends Component {
       delay: props.delay ? props.delay : 0,
       hasShown: false,
       complete: false,
+      showing: false,
     }
     this.groupRef = React.createRef()
     this.animationStage = React.createRef()
@@ -79,7 +80,13 @@ export class TextAppear extends Component {
   render() {
     return (
       <span>
-        <span ref={this.groupRef} style={{ display: this.state.complete ? 'block' : 'none' }}>
+        <span
+          ref={this.groupRef}
+          style={{
+            visibility: this.props.showing ? 'visible' : 'hidden',
+            display: this.state.complete || !this.props.showing ? 'block' : 'none',
+          }}
+        >
           {this.props.children}
         </span>
         <span style={{ display: this.state.complete ? 'none' : 'block' }} ref={this.animationStage} />
@@ -95,7 +102,7 @@ TextAppear.defaultProps = {
 TextAppear.propTypes = {
   showing: PropTypes.bool,
   distance: PropTypes.number,
-  children: PropTypes.object,
+  children: PropTypes.any,
 }
 
 TextAppear.contextType = DrizzleContext
