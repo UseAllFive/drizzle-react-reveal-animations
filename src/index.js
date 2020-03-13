@@ -5,6 +5,7 @@ import { TextAppear } from './text-appear'
 import React, { Component, useContext } from 'react'
 import { DrizzleContext } from './drizzle-context'
 import { DrizzleSettings } from './drizzle-settings'
+import { drizzleName } from './drizzle-name'
 import { FadeAppear } from './fade-appear'
 
 export default class Drizzle extends Component {
@@ -167,4 +168,4 @@ Drizzle.propTypes = {
   children: PropTypes.any,
 }
 
-export { DrizzleContext, DrizzleSettings }
+export { DrizzleContext, DrizzleSettings, drizzleName }
