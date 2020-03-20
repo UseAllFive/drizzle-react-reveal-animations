@@ -88,7 +88,7 @@ export default class Drizzle extends Component {
 
   render() {
     return (
-      <Box sx={{ display: 'block', height: '100%', width: '100%', position: this.props.position }} ref={this.groupRef}>
+      <Box sx={{ display: 'block', height: '100%', width: '100%', opacity: this.state.showing ? 1 : 0, position: this.props.position }} ref={this.groupRef}>
         <AniType
           speed={this.props.speed || this.context.speed}
           delay={this.props.delay || this.context.delay}

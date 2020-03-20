@@ -59,7 +59,6 @@ export class FadeAppear extends Component {
       <Box
         ref={this.groupRef}
         sx={{
-          visibility: this.props.showing ? 'visible' : 'hidden',
           height: '100%',
           width: '100%',
           position: this.props.position,

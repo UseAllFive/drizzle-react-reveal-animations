@@ -47,7 +47,6 @@ export class ZoomAppear extends Component {
       <div
         ref={this.groupRef}
         style={{
-          visibility: this.props.showing ? 'visible' : 'hidden',
           overflow: 'hidden',
           position: this.props.position,
           height: '100%',
@@ -55,7 +54,7 @@ export class ZoomAppear extends Component {
           display: this.props.display,
         }}
       >
-        <div className="drizzle-zoom" style={{ position: 'relative', height: '100%', width: '100%' }}>
+        <div className='drizzle-zoom' style={{ position: 'relative', height: '100%', width: '100%' }}>
           {this.props.children}
         </div>
       </div>

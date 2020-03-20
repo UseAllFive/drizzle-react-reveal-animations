@@ -12,7 +12,7 @@ export class TextAppear extends Component {
       complete: false,
       showing: false,
     }
-    this.groupRef = React.createRef()
+    // this.groupRef = React.createRef()
     this.animationStage = React.createRef()
   }
   componentDidMount() {
@@ -31,15 +31,15 @@ export class TextAppear extends Component {
       }
       return
     }
+    this.isSafari = /^((?!chrome|android).)*safari/i.test(window.navigator.userAgent)
     if (this.props.showing && !this.state.hasShown) {
       this.setState({ showing: true })
-      const originalContent = this.groupRef.current.innerHTML
-      this.animationStage.current.innerHTML = originalContent
+      // this.animationStage.current.innerHTML = originalContent
       const el = this.animationStage.current.firstElementChild
-      const childNodeCount = this.groupRef.current.childElementCount
+      const childNodeCount = this.animationStage.current.childElementCount
       if (childNodeCount !== 1) {
         console.log(`Drizzle Warning: type="text" must only contain one child node. Contains: ${childNodeCount}:`)
-        console.log(this.groupRef.current.innerHTML)
+        console.log(this.animationStage.current.innerHTML)
       }
       let lineCount = wrapLines(el)
       const lines = el.querySelectorAll('.drizzle-word')
@@ -47,33 +47,39 @@ export class TextAppear extends Component {
 
       const complete = (i) => {
         if (i === lineCount - 1) {
-          el.innerHTML = originalContent
+          // el.innerHTML = originalContent
           //   this.completeHandler()
           this.setState({ complete: true })
         }
       }
-      el.querySelectorAll('a').forEach((link) => {
-        link.style.textDecoration = 'none'
-      })
+      //   el.querySelectorAll('a').forEach((link) => {
+      //     link.style.textDecoration = 'none'
+      //   })
 
       for (var i = 0; i < lineCount; i++) {
         const lineWords = el.querySelectorAll(`.drizz-word-line-${i}`)
         lineWords.forEach((lw) => {
           lw.style.position = 'relative'
           lw.style.display = 'inline-block'
+          lw.style.top = '0'
+          lw.style.left = '0'
+          // lw.style['-webkit-font-smoothing'] = 'antialiased'
+          lw.style['-webkit-backface-visibility'] = 'hidden'
+          // lw.style.textRendering = 'geometricPrecision'
         })
+
         TweenMax.fromTo(
           lineWords,
           speed,
-          { y: this.props.distance, opacity: 0 },
+          { x: 0, y: this.props.distance, opacity: 0 },
           {
             y: 0,
+            x: 0,
             opacity: 1,
             delay: this.props.delay + i * this.context.textLineStaggerSpeed,
             onComplete: complete,
             onCompleteParams: [i],
             ease: this.props.ease,
-            clearProps: 'all',
           }
         )
       }
@@ -83,17 +89,10 @@ export class TextAppear extends Component {
 
   render() {
     return (
-      <span>
-        <span
-          ref={this.groupRef}
-          style={{
-            visibility: this.props.showing ? 'visible' : 'hidden',
-            display: this.state.complete || !this.props.showing ? 'block' : 'none',
-          }}
-        >
+      <span style={{ perspective: '100px' }}>
+        <span ref={this.animationStage}>
           {this.props.children}
         </span>
-        <span style={{ display: this.state.complete ? 'none' : 'block' }} ref={this.animationStage} />
       </span>
     )
   }
@@ -107,20 +106,23 @@ TextAppear.propTypes = {
   showing: PropTypes.bool,
   distance: PropTypes.number,
   children: PropTypes.any,
+  speed: PropTypes.number,
 }
 
 TextAppear.contextType = DrizzleContext
 
 function wrapLines($container) {
   // wraps words in spans, preserving html
-  $container.innerHTML = $container.innerHTML.replace(
+  const wrappedText = $container.innerHTML.replace(
     /(^|<\/?[^>]+>|\s+)([^\s<]+)/g,
     '$1<span class="drizzle-word">$2</span>'
   )
+  // wrap the spaces as words too:
+  $container.innerHTML = wrappedText
   let lineIndex = -1
   let lineTop = null
   let wordEls = $container.querySelectorAll('.drizzle-word')
-  console.log(wordEls)
+
   wordEls.forEach((word, index) => {
     if (word.offsetTop !== lineTop) {
       lineTop = word.offsetTop
