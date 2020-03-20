@@ -7,6 +7,8 @@ import { DrizzleContext } from './drizzle-context'
 import { DrizzleSettings } from './drizzle-settings'
 import { drizzleName } from './drizzle-name'
 import { FadeAppear } from './fade-appear'
+import { ZoomAppear } from './zoom-appear'
+import { WipeAppear } from './wipe-appear'
 
 export default class Drizzle extends Component {
   constructor(props) {
@@ -86,10 +88,12 @@ export default class Drizzle extends Component {
 
   render() {
     return (
-      <Box sx={{ display: 'block', height: '100%', width: '100%', position: 'relative' }} ref={this.groupRef}>
+      <Box sx={{ display: 'block', height: '100%', width: '100%', position: this.props.position }} ref={this.groupRef}>
         <AniType
           speed={this.props.speed || this.context.speed}
           delay={this.props.delay || this.context.delay}
+          position={this.props.position}
+          display={this.props.display}
           ease={this.props.ease || this.context.ease}
           type={this.props.type}
           distance={this.props.distance || this.context.distance}
@@ -106,7 +110,6 @@ Drizzle.contextType = DrizzleContext
 
 export function AniType(props) {
   let el = <div>{props.children}</div>
-
   let fullTypeName = props.type
   let direction = null
   let type
@@ -124,6 +127,8 @@ export function AniType(props) {
           distance={props.distance}
           delay={props.delay}
           direction={direction}
+          position={props.position}
+          display={props.display}
           ease={props.ease}
           showing={props.showing}
         >
@@ -137,11 +142,44 @@ export function AniType(props) {
           ease={props.ease}
           distance={props.distance}
           delay={props.delay}
+          position={props.position}
           speed={props.speed}
           showing={props.showing}
         >
           {props.children}
         </TextAppear>
+      )
+      break
+    case 'zoom':
+      el = (
+        <ZoomAppear
+          speed={props.speed}
+          distance={props.distance}
+          delay={props.delay}
+          direction={direction}
+          position={props.position}
+          display={props.display}
+          ease={props.ease}
+          showing={props.showing}
+        >
+          {props.children}
+        </ZoomAppear>
+      )
+      break
+    case 'wipe':
+      el = (
+        <WipeAppear
+          speed={props.speed}
+          distance={props.distance}
+          delay={props.delay}
+          position={props.position}
+          display={props.display}
+          direction={direction}
+          ease={props.ease}
+          showing={props.showing}
+        >
+          {props.children}
+        </WipeAppear>
       )
       break
   }
@@ -151,6 +189,8 @@ export function AniType(props) {
 Drizzle.defaultProps = {
   order: NaN,
   type: '',
+  position: 'relative',
+  display: 'inline-block',
   onAppear: () => {},
 }
 
@@ -163,6 +203,8 @@ Drizzle.propTypes = {
   type: PropTypes.string,
   ease: PropTypes.string,
   onAppear: PropTypes.func,
+  position: PropTypes.string,
+  display: PropTypes.string,
   visibilityRootMargin: PropTypes.any,
   visibilityThreshold: PropTypes.any,
   children: PropTypes.any,

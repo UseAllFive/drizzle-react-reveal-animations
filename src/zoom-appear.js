@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { TweenMax } from 'gsap'
 
-export class FadeAppear extends Component {
+export class ZoomAppear extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -28,27 +28,15 @@ export class FadeAppear extends Component {
     if (this.props.showing && !this.state.hasShown) {
       const tweenFrom = {
         opacity: 0,
+        scale: this.props.zoomScale,
       }
-      switch (this.props.direction) {
-        case 'up':
-          tweenFrom.y = this.props.distance
-          break
-        case 'down':
-          tweenFrom.y = -this.props.distance
-          break
-        case 'left':
-          tweenFrom.x = this.props.distance
-          break
-        case 'right':
-          tweenFrom.x = -this.props.distance
-          break
-      }
-      TweenMax.fromTo(this.groupRef.current, this.props.speed, tweenFrom, {
+
+      TweenMax.fromTo(this.groupRef.current.querySelector('.drizzle-zoom'), this.props.speed, tweenFrom, {
         opacity: 1,
-        x: 0,
-        y: 0,
-        ease: this.props.ease,
-        delay: this.props.delay,
+        scale: 1,
+        delay: this.props.delaySpeed,
+        onComplete: this.completeHandler,
+        ease: this.ease,
       })
       this.setState({ hasShown: true })
     }
@@ -56,34 +44,39 @@ export class FadeAppear extends Component {
 
   render() {
     return (
-      <Box
+      <div
         ref={this.groupRef}
-        sx={{
+        style={{
           visibility: this.props.showing ? 'visible' : 'hidden',
+          overflow: 'hidden',
+          position: this.props.position,
           height: '100%',
           width: '100%',
-          position: this.props.position,
           display: this.props.display,
         }}
       >
-        {this.props.children}
-      </Box>
+        <div className="drizzle-zoom" style={{ position: 'relative', height: '100%', width: '100%' }}>
+          {this.props.children}
+        </div>
+      </div>
     )
   }
 }
 // Specifies the default values for props:
-FadeAppear.defaultProps = {
+ZoomAppear.defaultProps = {
   distance: NaN,
+  zoomScale: 1.2,
 }
 
-FadeAppear.propTypes = {
+ZoomAppear.propTypes = {
   speed: PropTypes.number,
   delay: PropTypes.number,
+  zoomScale: PropTypes.number,
   distance: PropTypes.number,
   showing: PropTypes.bool,
+  ease: PropTypes.string,
   position: PropTypes.string,
   display: PropTypes.string,
-  ease: PropTypes.string,
   direction: PropTypes.string,
   children: PropTypes.any,
 }
