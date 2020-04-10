@@ -11,12 +11,16 @@ export class TextAppear extends Component {
       hasShown: false,
       complete: false,
       showing: false,
+      textContent: '',
     }
     // this.groupRef = React.createRef()
     this.animationStage = React.createRef()
   }
   componentDidMount() {
     this.check()
+    if (this.animationStage.current) {
+      this.setState({ textContent: this.animationStage.current.innerText })
+    }
   }
   componentDidUpdate() {
     this.check()
@@ -89,8 +93,8 @@ export class TextAppear extends Component {
 
   render() {
     return (
-      <span style={{ perspective: '100px' }}>
-        <span ref={this.animationStage}>
+      <span style={{ perspective: '100px' }} aria-label={this.state.textContent}>
+        <span ref={this.animationStage} aria-hidden="true">
           {this.props.children}
         </span>
       </span>
