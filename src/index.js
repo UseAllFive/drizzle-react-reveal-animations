@@ -95,7 +95,14 @@ export default class Drizzle extends Component {
           width: '100%',
           opacity: this.state.showing ? 1 : 0,
           position: this.props.position,
+
+          '@-moz-document url-prefix()': {
+            height: 'auto',
+          },
+
+          ...this.props.containerSx,
         }}
+        style={this.props.containerStyle}
         ref={this.groupRef}
       >
         <AniType
@@ -227,6 +234,8 @@ Drizzle.propTypes = {
   visibilityRootMargin: PropTypes.any,
   visibilityThreshold: PropTypes.any,
   children: PropTypes.any,
+  containerStyle: PropTypes.object,
+  containerSx: PropTypes.sx,
   sx: PropTypes.object,
   style: PropTypes.object,
 }

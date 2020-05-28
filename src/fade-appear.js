@@ -64,10 +64,6 @@ export class FadeAppear extends Component {
           position: this.props.position,
           display: this.props.display,
           ...this.props.sx,
-
-          '@-moz-document url-prefix()': {
-            height: 'auto'
-          }
         }}
         style={this.props.style}>
         {this.props.children}

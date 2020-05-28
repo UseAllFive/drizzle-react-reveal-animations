@@ -71,6 +71,10 @@ class Example extends Component {
 - `visibilityRootMargin` String or Number - (default: 0) Margin around the root. See [Intersection Observer API
   ](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_concepts_and_usage)
 - `visibilityThreshold` Array or Number - (default: 0.3) Indicates at what percentage of the target's visibility the observer's callback should be executed [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Intersection_observer_concepts_and_usage)
+- `containerSx`: Extend sx props to the container element
+- `containerStyle`: Extend style props to the container element
+- `sx`: Extend sx props to the underlying animation element
+- `style`: Extend style props to the underlying animation element
 
 #### `<DrizzleSettings>` - global settings applied to all child `<Drizzle>` elements
 
