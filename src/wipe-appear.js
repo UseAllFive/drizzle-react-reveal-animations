@@ -83,7 +83,9 @@ export class WipeAppear extends Component {
           height: '100%',
           width: '100%',
           display: this.props.display,
+          ...this.props.style
         }}
+        sx={this.props.sx}
       >
         <div className='drizzle-zoom' style={{ position: 'relative', height: '100%', width: '100%' }}>
           {this.props.children}
@@ -118,4 +120,6 @@ WipeAppear.propTypes = {
   ease: PropTypes.string,
   direction: PropTypes.string,
   children: PropTypes.any,
+  style: PropTypes.object,
+  sx: PropTypes.object
 }

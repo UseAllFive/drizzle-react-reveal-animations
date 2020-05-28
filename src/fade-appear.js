@@ -63,8 +63,13 @@ export class FadeAppear extends Component {
           width: '100%',
           position: this.props.position,
           display: this.props.display,
+          ...this.props.sx,
+
+          '@-moz-document url-prefix()': {
+            height: 'auto'
+          }
         }}
-      >
+        style={this.props.style}>
         {this.props.children}
       </Box>
     )
@@ -85,4 +90,6 @@ FadeAppear.propTypes = {
   ease: PropTypes.string,
   direction: PropTypes.string,
   children: PropTypes.any,
+  style: PropTypes.object,
+  sx: PropTypes.object
 }

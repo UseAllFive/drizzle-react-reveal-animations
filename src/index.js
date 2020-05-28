@@ -88,7 +88,16 @@ export default class Drizzle extends Component {
 
   render() {
     return (
-      <Box sx={{ display: 'block', height: '100%', width: '100%', opacity: this.state.showing ? 1 : 0, position: this.props.position }} ref={this.groupRef}>
+      <Box
+        sx={{
+          display: 'block',
+          height: '100%',
+          width: '100%',
+          opacity: this.state.showing ? 1 : 0,
+          position: this.props.position,
+        }}
+        ref={this.groupRef}
+      >
         <AniType
           speed={this.props.speed || this.context.speed}
           delay={this.props.delay || this.context.delay}
@@ -98,6 +107,8 @@ export default class Drizzle extends Component {
           type={this.props.type}
           distance={this.props.distance || this.context.distance}
           showing={this.state.showing}
+          sx={this.props.sx}
+          style={this.props.style}
         >
           {this.props.children}
         </AniType>
@@ -131,6 +142,8 @@ export function AniType(props) {
           display={props.display}
           ease={props.ease}
           showing={props.showing}
+          sx={props.sx}
+          style={props.style}
         >
           {props.children}
         </FadeAppear>
@@ -145,6 +158,8 @@ export function AniType(props) {
           position={props.position}
           speed={props.speed}
           showing={props.showing}
+          style={props.style}
+          sx={props.sx}
         >
           {props.children}
         </TextAppear>
@@ -161,6 +176,8 @@ export function AniType(props) {
           display={props.display}
           ease={props.ease}
           showing={props.showing}
+          style={props.style}
+          sx={props.sx}
         >
           {props.children}
         </ZoomAppear>
@@ -177,6 +194,8 @@ export function AniType(props) {
           direction={direction}
           ease={props.ease}
           showing={props.showing}
+          style={props.style}
+          sx={props.sx}
         >
           {props.children}
         </WipeAppear>
@@ -208,6 +227,8 @@ Drizzle.propTypes = {
   visibilityRootMargin: PropTypes.any,
   visibilityThreshold: PropTypes.any,
   children: PropTypes.any,
+  sx: PropTypes.object,
+  style: PropTypes.object,
 }
 
 export { DrizzleContext, DrizzleSettings, drizzleName }

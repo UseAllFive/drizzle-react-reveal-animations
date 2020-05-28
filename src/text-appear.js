@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
-import React, { useEffect, useState, useRef, Component } from 'react'
+import { Text } from 'rebass'
+import React, { Component } from 'react'
 import { TweenMax } from 'gsap'
 import { DrizzleContext } from './drizzle-context'
 
@@ -93,11 +94,11 @@ export class TextAppear extends Component {
 
   render() {
     return (
-      <span style={{ perspective: '100px' }} aria-label={this.state.textContent}>
-        <span ref={this.animationStage} aria-hidden="true">
+      <Text as='span' style={{ perspective: '100px', ...this.props.style }} sx={this.props.sx} aria-label={this.state.textContent}>
+        <span ref={this.animationStage} aria-hidden='true'>
           {this.props.children}
         </span>
-      </span>
+      </Text>
     )
   }
 }
@@ -111,6 +112,10 @@ TextAppear.propTypes = {
   distance: PropTypes.number,
   children: PropTypes.any,
   speed: PropTypes.number,
+  style: PropTypes.object,
+  delay: PropTypes.number,
+  ease: PropTypes.string,
+  sx: PropTypes.object,
 }
 
 TextAppear.contextType = DrizzleContext

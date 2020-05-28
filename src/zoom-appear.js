@@ -44,7 +44,7 @@ export class ZoomAppear extends Component {
 
   render() {
     return (
-      <div
+      <Box
         ref={this.groupRef}
         style={{
           overflow: 'hidden',
@@ -52,12 +52,14 @@ export class ZoomAppear extends Component {
           height: '100%',
           width: '100%',
           display: this.props.display,
+          ...this.props.style,
         }}
+        sx={this.props.sx}
       >
         <div className='drizzle-zoom' style={{ position: 'relative', height: '100%', width: '100%' }}>
           {this.props.children}
         </div>
-      </div>
+      </Box>
     )
   }
 }
@@ -76,6 +78,9 @@ ZoomAppear.propTypes = {
   ease: PropTypes.string,
   position: PropTypes.string,
   display: PropTypes.string,
+  delaySpeed: PropTypes.number,
   direction: PropTypes.string,
   children: PropTypes.any,
+  style: PropTypes.object,
+  sx: PropTypes.object
 }

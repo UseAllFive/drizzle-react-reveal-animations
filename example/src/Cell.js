@@ -8,7 +8,14 @@ export default class Grid extends Component {
   }
   render() {
     return (
-      <Drizzle group={this.state.groupName} type="fade-down" distance={100} delay={0} order={1} speed={1}>
+      <Drizzle
+        group={this.state.groupName}
+        type="fade-down"
+        distance={100}
+        delay={0}
+        order={1}
+        speed={1}
+      >
         <div className="block">
           <DrizzleSettings delay={0.5} staggerSpeed={0.3}>
             <Drizzle group={this.state.groupName} order={2} type="text">
