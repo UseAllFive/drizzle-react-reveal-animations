@@ -235,7 +235,7 @@ Drizzle.propTypes = {
   visibilityThreshold: PropTypes.any,
   children: PropTypes.any,
   containerStyle: PropTypes.object,
-  containerSx: PropTypes.sx,
+  containerSx: PropTypes.object,
   sx: PropTypes.object,
   style: PropTypes.object,
 }
